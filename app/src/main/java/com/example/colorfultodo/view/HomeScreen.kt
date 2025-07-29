@@ -2,6 +2,7 @@ package com.example.colorfultodo.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,8 +41,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.colorfultodo.R
 import com.example.colorfultodo.model.BottomBarModel
+import com.example.colorfultodo.ui.theme.blue
+import com.example.colorfultodo.ui.theme.darkGray
+import com.example.colorfultodo.ui.theme.dark_violet
 import com.example.colorfultodo.ui.theme.gray_white
 import com.example.colorfultodo.ui.theme.green
+import com.example.colorfultodo.ui.theme.orange
+import com.example.colorfultodo.ui.theme.pink
+import com.example.colorfultodo.ui.theme.red
+import com.example.colorfultodo.ui.theme.rose
+import com.example.colorfultodo.ui.theme.violet
+import com.example.colorfultodo.ui.theme.yellow
 
 @Preview
 @Composable
@@ -182,4 +193,61 @@ fun ListItem() {
     ) {
         Text("Ui Concepts worth existing", Modifier, fontSize = 18.sp)
     }
+}
+
+@Preview
+@Composable
+fun FilterScreen(){
+    Column (
+        Modifier.fillMaxWidth()
+            .padding(30.dp)
+            .clip(RoundedCornerShape(20.dp))
+    ){
+        Text("Filter by colours", Modifier.padding(top = 20.dp), fontSize = 24.sp)
+        Row (
+            Modifier.fillMaxWidth().padding(top = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Box(
+                Modifier.size(height = 40.dp, width = 100.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(gray_white)
+                    .border(1.dp, Color.Black, RoundedCornerShape(20.dp))
+            )
+            ColorItem(red)
+            ColorItem(orange)
+        }
+        Row (
+            Modifier.fillMaxWidth().padding(top = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            ColorItem(yellow)
+            ColorItem(green)
+            ColorItem(blue)
+        }
+        Row (
+            Modifier.fillMaxWidth().padding(top = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            ColorItem(pink)
+            ColorItem(violet)
+            ColorItem(dark_violet)
+        }
+        Row (
+            Modifier.fillMaxWidth().padding(top = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            ColorItem(rose)
+            ColorItem(gray_white)
+            ColorItem(darkGray)
+        }
+    }
+}
+@Composable
+fun ColorItem(color : Color) {
+    Box(
+        Modifier.size(height = 40.dp, width = 100.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(color)
+    )
 }
