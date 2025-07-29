@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,6 +26,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,48 +40,65 @@ import androidx.compose.ui.unit.sp
 import com.example.colorfultodo.R
 import com.example.colorfultodo.model.BottomBarModel
 import com.example.colorfultodo.ui.theme.gray_white
+import com.example.colorfultodo.ui.theme.green
 
 @Preview
 @Composable
 fun HomeScreen() {
-    Scaffold (
+    val isGrid by remember { mutableStateOf(true) }
+    Scaffold(
         Modifier,
         topBar = {
             Row(
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp)
                     .padding(vertical = 20.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Notes", modifier = Modifier, fontWeight = FontWeight.W600, fontSize = 36.sp)
+                Text(
+                    text = "Notes",
+                    modifier = Modifier,
+                    fontWeight = FontWeight.W600,
+                    fontSize = 36.sp
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Row {
-                    Image( painter = painterResource(id = R.drawable.baseline_color_lens_24),
-                        contentDescription = null)
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_color_lens_24),
+                        contentDescription = null
+                    )
                     Spacer(modifier = Modifier.width(20.dp))
-                    Image( painter = painterResource(id = R.drawable.outline_grid_view_24),
-                        contentDescription = null)
+                    Image(
+                        painter = painterResource(id = R.drawable.outline_grid_view_24),
+                        contentDescription = null
+                    )
                 }
             }
 
         },
         bottomBar = {
             val data = listOf(
-                BottomBarModel(R.drawable.outline_sticky_note_2_24 , "Notes"),
-                BottomBarModel(R.drawable.outline_help_24 , "Help"),
-                BottomBarModel(R.drawable.outline_person_24 , "Me")
+                BottomBarModel(R.drawable.outline_sticky_note_2_24, "Notes"),
+                BottomBarModel(R.drawable.outline_help_24, "Help"),
+                BottomBarModel(R.drawable.outline_person_24, "Me")
             )
-            Row (Modifier.fillMaxWidth()
-                .wrapContentHeight()
-                .background(color = gray_white, shape = RoundedCornerShape(topStart = 12.dp , topEnd = 12.dp))
-                .padding(vertical = 10.dp , horizontal = 20.dp),
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(
+                        color = gray_white,
+                        shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                    )
+                    .padding(vertical = 10.dp, horizontal = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
-            ){
+            ) {
                 data.forEach {
-                    Column (
+                    Column(
                         Modifier,
                         horizontalAlignment = Alignment.CenterHorizontally
-                    ){
+                    ) {
                         Image(
                             painter = painterResource(id = it.img),
                             contentDescription = null
@@ -93,21 +116,70 @@ fun HomeScreen() {
                 containerColor = Color(0xffFFB347),
                 elevation = FloatingActionButtonDefaults.elevation(8.dp)
             ) {
-                Icon(Icons.Filled.Add, "Localized description" , tint = Color.White)
+                Icon(Icons.Filled.Add, "Localized description", tint = Color.White)
             }
         }
-    ){
-        Box(Modifier.padding(it).fillMaxSize(),
-            contentAlignment = Alignment.Center) {
-            Column(
-                Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (false) {
+            Box(
+                Modifier
+                    .padding(it)
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
-                Image(painterResource(R.drawable.content_writing),
-                    contentDescription = null)
-                Text("Write your first note!" , Modifier.padding(top = 10.dp) , fontSize = 20.sp)
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painterResource(R.drawable.content_writing),
+                        contentDescription = null
+                    )
+                    Text("Write your first note!", Modifier.padding(top = 10.dp), fontSize = 20.sp)
+                }
             }
-
+        }else {
+            Column(
+                Modifier.padding(it)
+                    .fillMaxSize()
+                    .background(Color.White)
+            ) {
+                if (!isGrid) {
+                    LazyColumn(
+                        Modifier.padding(horizontal = 20.dp),
+                        verticalArrangement = Arrangement.spacedBy(25.dp),
+                    ) {
+                        items(10) {
+                            ListItem()
+                        }
+                    }
+                }
+                if (isGrid) {
+                    LazyVerticalStaggeredGrid(
+                        columns = StaggeredGridCells.Fixed(2),
+                        Modifier.padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalItemSpacing = 20.dp
+                    ) {
+                        items(10) {
+                            ListItem()
+                        }
+                    }
+                }
+            }
         }
+    }
+}
+
+@Preview
+@Composable
+fun ListItem() {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .background(green, RoundedCornerShape(16.dp))
+            .padding(horizontal = 20.dp, vertical = 30.dp)
+    ) {
+        Text("Ui Concepts worth existing", Modifier, fontSize = 18.sp)
     }
 }
