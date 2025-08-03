@@ -34,7 +34,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.colorfultodo.ui.theme.darkGray
+import com.example.colorfultodo.ui.theme.dark_violet
 import com.example.colorfultodo.ui.theme.dark_yellow
+import com.example.colorfultodo.ui.theme.gray_white
+import com.example.colorfultodo.ui.theme.green
+import com.example.colorfultodo.ui.theme.orange
+import com.example.colorfultodo.ui.theme.pink
+import com.example.colorfultodo.ui.theme.rose
+import com.example.colorfultodo.ui.theme.violet
 import com.example.colorfultodo.ui.theme.yellow
 
 @Preview
@@ -109,10 +117,11 @@ fun ColorPicker() {
         ) {
             Icon(
                 imageVector = Icons.Outlined.Delete,
-                contentDescription = null
+                contentDescription = null,
+                tint = dark_yellow
             )
             Spacer(modifier = Modifier.width(20.dp))
-            Text("Delete Note", Modifier, fontSize = 18.sp, fontWeight = FontWeight.W500)
+            Text("Delete Note", Modifier, fontSize = 18.sp, fontWeight = FontWeight.W500 , color = Color.White)
         }
         Divider(Modifier, thickness = 1.dp, color = Color.Black)
         Row(
@@ -126,7 +135,8 @@ fun ColorPicker() {
                 "Select Color",
                 Modifier.padding(top = 20.dp),
                 fontSize = 18.sp,
-                fontWeight = FontWeight.W600
+                fontWeight = FontWeight.W600,
+                color = Color.White
             )
         }
         Row (
@@ -135,10 +145,10 @@ fun ColorPicker() {
                 .padding(horizontal = 60.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-            ColorDots(yellow)
-            ColorDots(dark_yellow)
+            ColorDots(Color.White)
             ColorDots(Color.Red)
-            ColorDots(Color.Green)
+            ColorDots(orange)
+            ColorDots(yellow)
             ColorDots(Color.Blue)
         }
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
@@ -148,24 +158,21 @@ fun ColorPicker() {
                 .padding(horizontal = 60.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-            ColorDots(yellow)
-            ColorDots(dark_yellow)
-            ColorDots(Color.Red)
-            ColorDots(Color.Green)
-            ColorDots(Color.Blue)
+            ColorDots(green)
+            ColorDots(pink)
+            ColorDots(violet)
+            ColorDots(dark_violet)
+            ColorDots(darkGray)
         }
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
         Row (
             Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 60.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(37.dp)
         ){
-            ColorDots(yellow)
-            ColorDots(dark_yellow)
-            ColorDots(Color.Red)
-            ColorDots(Color.Green)
-            ColorDots(Color.Blue)
+            ColorDots(rose)
+            ColorDots(gray_white)
         }
     }
 }

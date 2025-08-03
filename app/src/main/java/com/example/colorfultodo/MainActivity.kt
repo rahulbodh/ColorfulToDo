@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ColorfulToDoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   HomeScreen()
+
                 }
             }
         }
